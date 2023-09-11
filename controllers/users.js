@@ -1,6 +1,9 @@
 const { v4: uuid } = require("uuid");
 let usersModel = [];
-
+const getAllUsers = (req, res) => {
+    // res.send(usersModel.firstName,usersModel.lastName,usersModel.age,usersModel.id);
+    res.send(usersModel);
+  };
 const createUser = (req, res) => {
   const user = req.body;
   const userId = uuid();
@@ -48,4 +51,5 @@ module.exports = {
   updateUser,
   deleteUser,
   getUserById,
+  getAllUsers
 };
