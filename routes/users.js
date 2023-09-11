@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const {v4:uuid} = require("uuid");
-const usersModel = [
+let usersModel = [
   {
     firstName: "Divyanshu",
     lastName: "Jain",
@@ -24,5 +24,10 @@ router.get('/:id',(req,res)=>{
   const foundUser = usersModel.find((user)=>user.id === id);
   res.send(foundUser);
   console.log("Get id route");
+});
+router.delete('/:id',(req,res)=>{
+  const {id} = req.params;
+  usersModel = usersModel.filter((user)=>user.id!==id);
+  res.send(`User with id ${id} is deleted from your profile`);
 })
 module.exports = router;
