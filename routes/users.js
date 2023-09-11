@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const {v4:uuid} = require("uuid");
 const usersModel = [
   {
     firstName: "Divyanshu",
@@ -13,7 +14,15 @@ router.get("/", (req, res) => {
 });
 router.post('/',(req,res)=>{
     const user = req.body;
-    usersModel.push(user);
-    res.send(`User with name ${user.firstName} added to the database`);
+    const userId = uuid();
+    const userWithId = {...user,id:userId};
+    usersModel.push(userWithId);
+    res.send(`User with name ${user.firstName} added to the database and id ${userWithId.id} added to the database`);
 }) ;
+router.get('/:id',(req,res)=>{
+  const {id} = req.params;
+  const foundUser = usersModel.find((user)=>user.id === id);
+  res.send(foundUser);
+  console.log("Get id route");
+})
 module.exports = router;
