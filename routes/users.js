@@ -30,4 +30,21 @@ router.delete('/:id',(req,res)=>{
   usersModel = usersModel.filter((user)=>user.id!==id);
   res.send(`User with id ${id} is deleted from your profile`);
 })
+router.patch('/:id',(req,res)=>{
+  const {id} = req.params;
+  const {firstName,lastName,age} = req.body;
+  const user = usersModel.find((user)=>user.id==id);
+  console.log("Id is ",id);
+  console.log(user.id);
+  if(firstName){
+    user.firstName =   firstName;
+  }
+  if(lastName){
+    user.lastName = lastName;
+  }
+  if(age){
+    user.age = age;
+  }
+  res.send(`User with  id ${id} has been updated`);
+})
 module.exports = router;
